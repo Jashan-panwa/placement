@@ -1,7 +1,5 @@
 const express = require("express");
 const app = express();
-
-// Define categorizeData function
 const categorizeData = (data) => {
   const result = {
     is_success: true,
@@ -12,7 +10,6 @@ const categorizeData = (data) => {
     even_numbers: [],
     alphabets: [],
   };
-
   data.forEach((value) => {
     if (!isNaN(value)) {
       if (value % 2 === 0) {
@@ -28,26 +25,19 @@ const categorizeData = (data) => {
       result.alphabets.push(value.toUpperCase());
     }
   });
-
-  return result; // Moved return statement inside the function
+  return result;
 };
-
 app.get("/", (req, res) => {
   res.send("api is running but your url is not /bfhl");
 });
-
-app.use(express.json()); // Moved express.json() middleware to the top
-
+app.use(express.json());
 app.post("/bfhl", (req, res) => {
   const { data } = req.body;
-
   if (!Array.isArray(data)) {
     return res.status(400).json({ error: "Data must be an array" });
   }
-
   const responseData = categorizeData(data);
   res.json(responseData);
 });
-
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`server started on port ${PORT}`)); // Added arrow function to the console.log
