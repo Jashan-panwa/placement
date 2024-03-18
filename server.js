@@ -27,10 +27,15 @@ const categorizeData = (data) => {
   });
   return result;
 };
+/// ------To see api is running 
 app.get("/", (req, res) => {
   res.send("api is running but your url is not /bfhl");
 });
 app.use(express.json());
+/// ------To see api is running on bfhl
+app.get("/bfhl", (req, res) => {
+  res.send("this is used to get data, try using post");
+});
 app.post("/bfhl", (req, res) => {
   const { data } = req.body;
   if (!Array.isArray(data)) {
